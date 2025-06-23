@@ -1,0 +1,7 @@
+FROM postgres:15
+
+ENV POSTGRES_DB=schooldb
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+
+COPY ddl.sql /docker-entrypoint-initdb.d/
