@@ -122,3 +122,45 @@ O diagrama abaixo representa a estrutura conceitual das entidades e seus relacio
 ## 📉 10. Diagrama Entidade-Relacionamento Lógico (DER)
 
 O diagrama abaixo representa a estrutura lógica do banco de dados com seus relacionamentos:
++------------+          +-----------+          +-------------+
+|  Usuario   |          |  Turma    |<---------|   Aluno     |
+|------------|          |-----------|          |-------------|
+| id_usuario |          | id_turma  |          | id_aluno    |
+| login      |          | nome_turma|          | nome        |
+| senha      |          | id_prof.  |--------->| id_turma FK |
+| nivel_ac.  |                                     ...       
++------------+                                     |
+                                                  |
+                             +----------------+    |
+                             |   Professor    |<---+
+                             |----------------|
+                             | id_professor   |
+                             | nome           |
+                             | email          |
+                             +----------------+
+
++----------------+     +-------------------+     +------------------------+
+|   Pagamento    |<----|      Aluno        |---->|      Presenca          |
+|----------------|     |-------------------|     |------------------------|
+| id_pagamento   |     | id_aluno          |     | id_aluno (FK)          |
+| id_aluno (FK)  |     | nome_responsável  |     | data_presenca          |
+| valor_pago     |     | telefone_resp.    |     | presente               |
+| ...            |     | email_resp.       |     +------------------------+
++----------------+     +-------------------+
+
+         +------------------------+
+         |     Atividade         |
+         |------------------------|
+         | id_atividade           |
+         | descricao              |
+         | data_realizacao        |
+         +-----------+------------+
+                     |
+                     v
+         +------------------------+
+         |  Presenca_Atividade    |
+         |------------------------|
+         | id_atividade (PK/FK)   |
+         | id_aluno (PK/FK)       |
+         | presente               |
+         +------------------------+
