@@ -113,7 +113,90 @@ docker-compose up --build
 
 ## 📊 9. Modelo Entidade-Relacionamento (MER)
 
-O diagrama abaixo representa a estrutura conceitual das entidades e seus relacionamentos:
+Entidades e Atributos:
+
+1. Usuario
+
+• id_usuario (PK, string)
+
+• login (string)
+
+• senha (string)
+
+• nivel_acesso (string)
+
+2. Turma
+
+• id_turma (PK, string)
+
+• nome_turma (string)
+
+• id_professor (FK, string)
+
+3. Aluno
+
+• id_aluno (PK, string)
+
+• nome (string)
+
+• id_turma (FK, string)
+
+4. Professor
+
+• id_professor (PK, string)
+
+• nome (string)
+
+• email (string)
+
+5. Pagamento
+
+• id_pagamento (PK, string)
+
+• id_aluno (FK, string)
+
+• valor_pago (string)
+
+6. Presenca
+
+• id_aluno (FK, string)
+
+• data_presenca (string)
+
+• presente (boolean)
+
+7. Atividade
+
+• id_atividade (PK, string)
+
+• descricao (string)
+
+• data_realizacao (date)
+
+8. Presenca_Atividade
+
+• id_atividade (FK, string)
+
+• id_aluno (FK, string)
+
+• presente (boolean)
+
+
+Relacionamentos:
+
+1. Usuario acessa Turma (1:1)
+
+2. Turma pertence a Aluno (1:N)
+
+3. Aluno registra Presença (1:N)
+
+4. Aluno realiza Pagamento (1:N)
+
+5. Turma é associada a Professor (1:N)
+
+6. Atividade é registrada em Presenca_Atividade (1:N)
+
+7. Aluno participa de Presenca_Atividade (1:N)
 ---
 
 ## 📉 10. Diagrama Entidade-Relacionamento Lógico (DER)
