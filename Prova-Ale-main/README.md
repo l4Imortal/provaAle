@@ -114,8 +114,57 @@ docker-compose up --build
 ## 📊 9. Modelo Entidade-Relacionamento (MER)
 
 O diagrama abaixo representa a estrutura conceitual das entidades e seus relacionamentos:
-
-![MER do Sistema](./mer_diagrama.png)
+```mermaid
+erDiagram
+    Usuario {
+        string id_usuario
+        string login
+        string senha
+        string nivel_acesso
+    }
+    Turma {
+        string id_turma
+        string nome_turma
+        string id_professor
+    }
+    Aluno {
+        string id_aluno
+        string nome
+        string id_turma
+    }
+    Professor {
+        string id_professor
+        string nome
+        string email
+    }
+    Pagamento {
+        string id_pagamento
+        string id_aluno
+        string valor_pago
+    }
+    Presenca {
+        string id_aluno
+        string data_presenca
+        boolean presente
+    }
+    Atividade {
+        string id_atividade
+        string descricao
+        date data_realizacao
+    }
+    Presenca_Atividade {
+        string id_atividade
+        string id_aluno
+        boolean presente
+    }
+    
+    Usuario ||--|| Turma : "acesso"
+    Turma ||--o{ Aluno : "pertence"
+    Aluno ||--o{ Presenca : "tem"
+    Aluno ||--o{ Pagamento : "realiza"
+    Turma ||--o{ Professor : "associado"
+    Atividade ||--o{ Presenca_Atividade : "registrado para"
+    Aluno ||--o{ Presenca_Atividade : "participa"
 
 ---
 
