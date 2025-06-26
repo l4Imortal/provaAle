@@ -122,7 +122,7 @@ O diagrama abaixo representa a estrutura conceitual das entidades e seus relacio
 ## 📉 10. Diagrama Entidade-Relacionamento Lógico (DER)
 
 O diagrama abaixo representa a estrutura lógica do banco de dados com seus relacionamentos:
-![Minha foto](2BEE6287-92E8-4FE6-A06C-E90B9C6674BA.png)
+![imagem](2bee6287-92e8-4fe6-a06c-e90b9c6674ba.png)
 
 ---
 
