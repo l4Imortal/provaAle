@@ -1,130 +1,135 @@
-# Sistema de Gestão Escolar Infantil
+# 🏫 Sistema de Gestão Escolar Infantil
 
-## Objetivo
-
+## 🎯 Objetivo
 Consolidar os conhecimentos em ambientes de desenvolvimento e bancos de dados utilizando conteinerização, por meio da criação da infraestrutura de backend para um sistema de gestão de escola infantil.
 
 ---
 
-## 1. Contexto
-
+## 📘 1. Contexto
 Vocês são a equipe de backend responsável pela criação da infraestrutura de um sistema de gestão para uma escola infantil.
 
 ---
 
-## 2. Objetivos do Sistema
+## 🎯 2. Objetivos do Sistema
 
-- **Gerenciamento de Pagamentos:** Registro, acompanhamento e geração de relatórios de pagamentos de mensalidades e taxas escolares.
-- **Controle de Presenças:** Registro e acompanhamento da frequência dos alunos, com geração de relatórios.
-- **Gerenciamento de Atividades:** Cadastro, organização e visualização das atividades pedagógicas realizadas com os alunos.
+- **Gerenciamento de Pagamentos:** Registro, acompanhamento e geração de relatórios de mensalidades e taxas.
+- **Controle de Presenças:** Registro e consulta da frequência dos alunos, com relatórios.
+- **Gerenciamento de Atividades:** Cadastro, organização e visualização das atividades pedagógicas.
 
 ---
 
-## 3. Escopo do Sistema
+## 📦 3. Escopo do Sistema
 
-### Módulo de Pagamentos
-- Cadastro de alunos com informações financeiras.
-- Registro de pagamentos (mensalidades, matrículas, taxas extras).
-- Acompanhamento de pagamentos pendentes e realizados.
+### 🔹 Módulo de Pagamentos
+- Cadastro de alunos com dados financeiros.
+- Registro de mensalidades, matrículas e taxas extras.
+- Consulta de pagamentos pendentes e realizados.
 - Geração de relatórios financeiros.
 
-### Módulo de Presenças
+### 🔹 Módulo de Presenças
 - Registro diário de presença dos alunos.
-- Visualização da frequência por aluno e por período.
+- Consulta por aluno/período.
 - Geração de relatórios de frequência.
 
-### Módulo de Atividades
+### 🔹 Módulo de Atividades
 - Cadastro de atividades pedagógicas.
-- Associação de atividades aos alunos.
-- Visualização das atividades por aluno e por turma.
+- Associação entre alunos e atividades.
+- Visualização de atividades por aluno e por turma.
 
 ---
 
-## 4. Requisitos Funcionais
+## ✅ 4. Requisitos Funcionais
 
-- **RF001:** Autenticação de usuários com diferentes níveis de permissão.
-- **RF002:** Gerenciamento completo de alunos.
+- **RF001:** Autenticação de usuários com níveis de permissão.
+- **RF002:** CRUD de alunos.
 - **RF003:** Gerenciamento de turmas.
 - **RF004:** Registro manual de pagamentos.
 - **RF005:** Consulta de pagamentos por aluno, período e status.
 - **RF006:** Geração de relatórios de pagamentos.
 - **RF007:** Registro de presenças.
-- **RF008:** Consulta e geração de relatórios de presenças.
+- **RF008:** Relatórios de presença.
 - **RF009:** Cadastro e associação de atividades pedagógicas.
-- **RF010:** Visualização e relatórios de atividades.
+- **RF010:** Relatórios e visualização de atividades.
 
 ---
 
-## 5. Requisitos Não Funcionais
+## 🧱 5. Requisitos Não Funcionais
 
 - **RNF001:** Desempenho responsivo.
-- **RNF002:** Usabilidade intuitiva.
+- **RNF002:** Interface intuitiva.
 - **RNF003:** Segurança dos dados.
-- **RNF004:** Alta disponibilidade e confiabilidade.
+- **RNF004:** Alta disponibilidade.
 - **RNF005:** Escalabilidade.
-- **RNF006:** Código organizado e documentado.
-- **RNF007:** Compatibilidade com navegadores modernos.
+- **RNF006:** Código limpo e documentado.
+- **RNF007:** Compatível com navegadores modernos.
 
 ---
 
-## 6. Requisitos Técnicos
+## 🛠️ 6. Requisitos Técnicos
 
-- **Linguagem:** Python
-- **Framework Web:** Flask
-- **Banco de Dados:** PostgreSQL
-- **Controle de Versão:** Git
-- **Testes:** Unitários e de integração
-- **Implantação:** Docker e AWS
-- **CI/CD:** GitHub Actions
-
----
-
-## 7. Estrutura do Projeto
-
-- `ddl.sql`: Script de criação do banco de dados.
-- `Dockerfile.db`: Dockerfile para o banco de dados PostgreSQL.
-- `Dockerfile`: Dockerfile para o backend Flask.
-- `docker-compose.yml`: Orquestração dos containers.
-- `app/`: Código-fonte do backend.
-- `requirements.txt`: Dependências Python.
+- **Linguagem:** Python  
+- **Framework Web:** Flask  
+- **Banco de Dados:** PostgreSQL  
+- **Controle de Versão:** Git  
+- **Testes:** Unitários e de integração  
+- **Implantação:** Docker e AWS  
+- **CI/CD:** GitHub Actions  
 
 ---
 
-## 8. Passo a Passo para Execução
+## 🗂️ 7. Estrutura do Projeto
 
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/seuusuario/seurepositorio.git
-   cd seurepositorio
-   ```
-
-2. **Configure as variáveis de ambiente no arquivo `.env`**  
-   (Exemplo disponível como `.env.example`).
-
-3. **Suba os containers:**
-   ```bash
-   docker-compose up --build
-   ```
-
-4. **Acesse o sistema:**
-   - Backend: [http://localhost:5000](http://localhost:5000)
-   - Banco de dados: porta 5432
+```
+📁 app/                # Código-fonte do backend
+📄 ddl.sql             # Script de criação do banco de dados
+🐳 Dockerfile          # Backend (Flask)
+🐳 Dockerfile.db       # Banco de Dados (PostgreSQL)
+🔧 docker-compose.yml  # Orquestração dos containers
+📄 requirements.txt    # Dependências Python
+```
 
 ---
 
-## 9. Critérios de Aceitação
+## ▶️ 8. Passo a Passo para Execução
 
-O sistema será aceito quando atender a todos os requisitos funcionais e não funcionais, validados por testes e pelo cliente.
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seuusuario/seurepositorio.git
+
+# 2. Acesse a pasta do projeto
+cd seurepositorio
+
+# 3. Configure as variáveis de ambiente
+# Exemplo disponível em .env.example
+
+# 4. Suba os containers
+docker-compose up --build
+```
+
+- Backend disponível em: [http://localhost:5000](http://localhost:5000)  
+- Banco de dados: porta **5432**
 
 ---
 
-## 10. Próximos Passos
+## 📊 9. Modelo Entidade-Relacionamento (MER)
 
-- Reunião com o cliente para validação e refinamento dos requisitos.
-- Construção do MER e DER.
-- Definição da arquitetura e tecnologias específicas.
-- Elaboração de cronograma detalhado e proposta comercial.
+O diagrama abaixo representa a estrutura conceitual das entidades e seus relacionamentos:
+
+![MER do Sistema](./mer_diagrama.png)
 
 ---
 
-# Prova-Ale
+## 📉 10. Diagrama Entidade-Relacionamento Lógico (DER)
+
+O diagrama abaixo representa a estrutura lógica do banco de dados com seus relacionamentos:
+
+
+---
+
+## 🧪 11. Critérios de Aceitação
+
+O sistema será aceito quando atender a **todos os requisitos funcionais e não funcionais**, validados por testes e pela equipe cliente.
+
+---
+
+## 🧾 Prova-Ale
