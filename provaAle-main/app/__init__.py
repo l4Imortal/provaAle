@@ -1,64 +1,114 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
-from flask_restx import Api
+from sqlalchemy import text
 import os
 
 db = SQLAlchemy()
-jwt = JWTManager()
 
 def create_app():
     app = Flask(__name__)
     
-    # Configurações
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite:///escola.db')
+    # Configurações do banco
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+        'SQLALCHEMY_DATABASE_URI', 
+        'postgresql://postgres:postgres@db:5432/schooldb'
+    )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
-    app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-secret-key')
+    app.config['SECRET_KEY'] = 'dev-secret-key'
     
-    # Inicializar extensões
+    # Inicializar banco
     db.init_app(app)
-    jwt.init_app(app)
     
-    # Configurar Flask-RESTX (Swagger)
-    api = Api(app, 
-              title='Sistema Escolar API',
-              version='1.0',
-              description='API para gerenciar escola',
-              doc='/swagger/')
+    # Importar modelos
+    from app.models import Turma, Student
     
-    # Registrar blueprints
-    try:
-        from app.routes.classes import classes_bp
-        app.register_blueprint(classes_bp)
-    except ImportError:
-        pass
+    # Criar tabelas
+    with app.app_context():
+        db.create_all()
     
-    try:
-        from app.routes.students import students_bp
-        app.register_blueprint(students_bp)
-    except ImportError:
-        pass
-    
-    try:
-        from app.routes.payments import payments_bp
-        app.register_blueprint(payments_bp)
-    except ImportError:
-        pass
-    
-    try:
-        from app.routes.attendance import attendance_bp
-        app.register_blueprint(attendance_bp)
-    except ImportError:
-        pass
-    
-    # Rota básica
+    # Rotas com banco real
     @app.route('/')
     def home():
-        return {'message': 'API funcionando!', 'swagger': '/swagger/', 'status': 'success'}
+        return jsonify({
+            'message': 'API Sistema Escolar funcionando!', 
+            'status': 'success',
+            'database': 'PostgreSQL conectado'
+        })
     
     @app.route('/health')
     def health():
-        return {'status': 'healthy'}
+        try:
+            # Testar conexão com banco
+            db.session.execute(text('SELECT 1'))
+            return jsonify({'status': 'healthy', 'database': 'connected'})
+        except Exception as e:
+            return jsonify({'status': 'error', 'database': 'disconnected', 'error': str(e)}), 500
+    
+    @app.route('/turmas', methods=['GET'])
+    def list_turmas():
+        try:
+            turmas = Turma.query.all()
+            return jsonify([turma.to_dict() for turma in turmas])
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/turmas', methods=['POST'])
+    def create_turma():
+        try:
+            data = request.get_json()
+            
+            if not data or not data.get('nome'):
+                return jsonify({'error': 'Nome é obrigatório'}), 400
+            
+            turma = Turma(
+                nome=data.get('nome'),
+                ano=data.get('ano', 2025)
+            )
+            
+            db.session.add(turma)
+            db.session.commit()
+            
+            return jsonify({
+                'message': 'Turma criada com sucesso!',
+                'turma': turma.to_dict()
+            }), 201
+            
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/students', methods=['GET'])
+    def list_students():
+        try:
+            students = Student.query.all()
+            return jsonify([student.to_dict() for student in students])
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/students', methods=['POST'])
+    def create_student():
+        try:
+            data = request.get_json()
+            
+            if not data or not data.get('nome') or not data.get('email'):
+                return jsonify({'error': 'Nome e email são obrigatórios'}), 400
+            
+            student = Student(
+                nome=data.get('nome'),
+                email=data.get('email'),
+                turma_id=data.get('turma_id')
+            )
+            
+            db.session.add(student)
+            db.session.commit()
+            
+            return jsonify({
+                'message': 'Estudante criado com sucesso!',
+                'student': student.to_dict()
+            }), 201
+            
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
     
     return app
